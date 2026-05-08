@@ -9,17 +9,13 @@ API.interceptors.request.use(
 
     const token = localStorage.getItem("token");
 
-    console.log("TOKEN =>", token);
-
     if (token) {
       req.headers.Authorization = `Bearer ${token}`;
     }
 
     return req;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 export default API;
