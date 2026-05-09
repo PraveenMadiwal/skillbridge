@@ -1,3 +1,5 @@
+// student dashboard page, where students can see their profile, join sessions, and view available sessions. They can also edit their name and password from the profile page.
+
 import {
   useEffect,
   useState,
