@@ -97,6 +97,37 @@ exports.joinSession = async (req, res) => {
 
   try {
 
+    // CHECK EMPTY SESSION ID
+
+    if (!sessionId) {
+
+      return res.status(400).json({
+        message: "Session ID Required"
+      });
+
+    }
+
+    // CHECK SESSION EXISTS
+
+    const sessionCheck = await pool.query(
+      `
+      SELECT *
+      FROM sessions
+      WHERE id = $1
+      `,
+      [sessionId]
+    );
+
+    if (sessionCheck.rows.length === 0) {
+
+      return res.status(404).json({
+        message: "Session Not Found"
+      });
+
+    }
+
+    // CHECK ALREADY JOINED
+
     const existing = await pool.query(
       `
       SELECT *
@@ -114,6 +145,8 @@ exports.joinSession = async (req, res) => {
       });
 
     }
+
+    // INSERT PARTICIPANT
 
     await pool.query(
       `
@@ -133,13 +166,17 @@ exports.joinSession = async (req, res) => {
 
   } catch (err) {
 
-    console.log(err);
+    console.log(
+      "JOIN SESSION ERROR =>",
+      err
+    );
 
     res.status(500).json({
       error: err.message
     });
 
   }
+
 };
 
 // ================= SESSION DETAILS =================

@@ -28,10 +28,7 @@ export default function Login() {
 
     try {
 
-      await API.post(
-        "/auth/signup",
-        form
-      );
+      await API.post("/auth/signup", form);
 
       alert("Signup Successful");
 
@@ -95,21 +92,37 @@ export default function Login() {
 
   return (
 
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-indigo-100 flex items-center justify-center px-4 py-10">
+    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-indigo-950 via-blue-900 to-cyan-900 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-10">
 
-      <div className="w-full max-w-md bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl border border-gray-200 p-6 sm:p-8">
+      {/* Background Blur Effects */}
+      <div className="absolute top-0 left-0 w-72 h-72 bg-pink-500/30 rounded-full blur-3xl"></div>
 
-        {/* Logo / Title */}
+      <div className="absolute bottom-0 right-0 w-80 h-80 bg-cyan-400/20 rounded-full blur-3xl"></div>
+
+      {/* Main Card */}
+      <div className="relative w-full max-w-md sm:max-w-lg lg:max-w-md bg-white/10 backdrop-blur-2xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.37)] rounded-[30px] p-6 sm:p-8 lg:p-10">
+
+        {/* Header */}
         <div className="text-center mb-8">
 
-          <h1 className="text-4xl font-extrabold text-blue-700">
+          <div className="w-20 h-20 mx-auto rounded-3xl bg-gradient-to-r from-cyan-400 to-blue-500 flex items-center justify-center shadow-lg mb-4">
+
+            <h1 className="text-3xl font-black text-white">
+              SB
+            </h1>
+
+          </div>
+
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-wide">
             SkillBridge
           </h1>
 
-          <p className="text-gray-500 mt-2 text-sm sm:text-base">
+          <p className="text-gray-200 mt-3 text-sm sm:text-base leading-relaxed">
+
             {isSignup
-              ? "Create your account to continue"
-              : "Login to access your dashboard"}
+              ? "Create your account and start your learning journey."
+              : "Login to continue to your personalized dashboard."}
+
           </p>
 
         </div>
@@ -117,18 +130,18 @@ export default function Login() {
         {/* Full Name */}
         {isSignup && (
 
-          <div className="mb-4">
+          <div className="mb-5">
 
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
+            <label className="block text-sm font-semibold text-gray-100 mb-2">
               Full Name
             </label>
 
             <input
               type="text"
               name="name"
-              placeholder="Enter Full Name"
+              placeholder="Enter your full name"
               onChange={handleChange}
-              className="w-full border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none p-3 rounded-xl transition duration-200"
+              className="w-full bg-white/10 border border-white/20 text-white placeholder-gray-300 px-4 py-3 rounded-2xl outline-none focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/20 transition-all duration-300"
             />
 
           </div>
@@ -136,35 +149,35 @@ export default function Login() {
         )}
 
         {/* Email */}
-        <div className="mb-4">
+        <div className="mb-5">
 
-          <label className="block text-sm font-semibold text-gray-700 mb-2">
+          <label className="block text-sm font-semibold text-gray-100 mb-2">
             Email Address
           </label>
 
           <input
             type="email"
             name="email"
-            placeholder="Enter Email"
+            placeholder="Enter your email"
             onChange={handleChange}
-            className="w-full border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none p-3 rounded-xl transition duration-200"
+            className="w-full bg-white/10 border border-white/20 text-white placeholder-gray-300 px-4 py-3 rounded-2xl outline-none focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/20 transition-all duration-300"
           />
 
         </div>
 
         {/* Password */}
-        <div className="mb-4">
+        <div className="mb-5">
 
-          <label className="block text-sm font-semibold text-gray-700 mb-2">
+          <label className="block text-sm font-semibold text-gray-100 mb-2">
             Password
           </label>
 
           <input
             type="password"
             name="password"
-            placeholder="Enter Password"
+            placeholder="Enter your password"
             onChange={handleChange}
-            className="w-full border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none p-3 rounded-xl transition duration-200"
+            className="w-full bg-white/10 border border-white/20 text-white placeholder-gray-300 px-4 py-3 rounded-2xl outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-400/20 transition-all duration-300"
           />
 
         </div>
@@ -174,33 +187,33 @@ export default function Login() {
 
           <div className="mb-6">
 
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
+            <label className="block text-sm font-semibold text-gray-100 mb-2">
               Select Role
             </label>
 
             <select
               name="role"
               onChange={handleChange}
-              className="w-full border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none p-3 rounded-xl transition duration-200 bg-white"
+              className="w-full bg-white/10 border border-white/20 text-white px-4 py-3 rounded-2xl outline-none focus:border-purple-400 focus:ring-4 focus:ring-purple-400/20 transition-all duration-300"
             >
 
-              <option value="student">
+              <option className="text-black" value="student">
                 Student
               </option>
 
-              <option value="trainer">
+              <option className="text-black" value="trainer">
                 Trainer
               </option>
 
-              <option value="institution">
+              <option className="text-black" value="institution">
                 Institution
               </option>
 
-              <option value="programme_manager">
+              <option className="text-black" value="programme_manager">
                 Programme Manager
               </option>
 
-              <option value="monitoring_officer">
+              <option className="text-black" value="monitoring_officer">
                 Monitoring Officer
               </option>
 
@@ -215,27 +228,52 @@ export default function Login() {
 
           <button
             onClick={login}
-            className="w-full bg-blue-600 hover:bg-blue-700 transition duration-300 text-white font-semibold py-3 rounded-xl shadow-md"
+            className="group relative w-full overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-blue-600 hover:to-cyan-500 text-white font-bold py-3.5 rounded-2xl shadow-lg hover:shadow-cyan-500/40 transition-all duration-500 hover:scale-[1.02] active:scale-[0.98]"
           >
-            Login
+
+            <span className="relative z-10">
+              Login
+            </span>
+
+            <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition duration-500"></div>
+
           </button>
 
         ) : (
 
           <button
             onClick={signup}
-            className="w-full bg-green-600 hover:bg-green-700 transition duration-300 text-white font-semibold py-3 rounded-xl shadow-md"
+            className="group relative w-full overflow-hidden bg-gradient-to-r from-pink-500 to-purple-600 hover:from-purple-600 hover:to-pink-500 text-white font-bold py-3.5 rounded-2xl shadow-lg hover:shadow-pink-500/40 transition-all duration-500 hover:scale-[1.02] active:scale-[0.98]"
           >
-            Create Account
+
+            <span className="relative z-10">
+              Create Account
+            </span>
+
+            <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition duration-500"></div>
+
           </button>
 
         )}
 
+        {/* Divider */}
+        <div className="flex items-center gap-3 my-6">
+
+          <div className="flex-1 h-[1px] bg-white/20"></div>
+
+          <span className="text-xs text-gray-300">
+            OR
+          </span>
+
+          <div className="flex-1 h-[1px] bg-white/20"></div>
+
+        </div>
+
         {/* Toggle */}
-        <div className="text-center mt-6">
+        <div className="text-center">
 
           <p
-            className="text-blue-600 hover:text-blue-800 font-medium cursor-pointer transition duration-200"
+            className="inline-block text-sm sm:text-base text-cyan-300 hover:text-pink-300 font-semibold cursor-pointer transition-all duration-300 hover:scale-105"
             onClick={() => setIsSignup(!isSignup)}
           >
 
@@ -252,4 +290,5 @@ export default function Login() {
     </div>
 
   );
+
 }

@@ -154,3 +154,131 @@ exports.login = async (req, res) => {
   }
 
 };
+
+// ================= TRAINER PROFILE =================
+
+exports.getTrainerProfile = async (
+  req,
+  res
+) => {
+
+  try {
+
+    const result = await pool.query(
+      `
+      SELECT
+        id,
+        name,
+        email,
+        created_at
+      FROM users
+      WHERE id = $1
+      `,
+      [req.user.id]
+    );
+
+    const sessions = await pool.query(
+      `
+      SELECT COUNT(*)
+      FROM sessions
+      WHERE trainer_id = $1
+      `,
+      [req.user.id]
+    );
+
+    res.json({
+      ...result.rows[0],
+      totalSessions:
+        sessions.rows[0].count,
+    });
+
+  } catch (err) {
+
+    console.log(err);
+
+    res.status(500).json({
+      message: "Server Error",
+    });
+
+  }
+
+};
+
+// ================= UPDATE TRAINER NAME =================
+
+exports.updateTrainerName =
+  async (req, res) => {
+
+    const { name } = req.body;
+
+    try {
+
+      await pool.query(
+        `
+        UPDATE users
+        SET name = $1
+        WHERE id = $2
+        `,
+        [name, req.user.id]
+      );
+
+      res.json({
+        message:
+          "Trainer Name Updated",
+      });
+
+    } catch (err) {
+
+      console.log(err);
+
+      res.status(500).json({
+        message: "Server Error",
+      });
+
+    }
+
+  };
+
+// ================= UPDATE TRAINER PASSWORD =================
+
+exports.updateTrainerPassword =
+  async (req, res) => {
+
+    const { password } = req.body;
+
+    try {
+
+      const hashedPassword =
+        await bcrypt.hash(
+          password,
+          10
+        );
+
+      await pool.query(
+        `
+        UPDATE users
+        SET password = $1
+        WHERE id = $2
+        `,
+        [
+          hashedPassword,
+          req.user.id,
+        ]
+      );
+
+      res.json({
+        message:
+          "Password Updated",
+      });
+
+    } catch (err) {
+
+      console.log(err);
+
+      res.status(500).json({
+        message: "Server Error",
+      });
+
+    }
+
+  };

@@ -7,7 +7,76 @@ const { authorize } = require("../middleware/role");
 
 // ================= CONTROLLERS =================
 
+
+const {
+  getStudentProfile,
+  updateStudentName,
+  updateStudentPassword,
+} = require("../controllers/studentController");
+
+const {
+  getTrainerProfile,
+  updateTrainerName,
+  updateTrainerPassword,
+} = require("../controllers/authController");
+// ======================================================
+// ==================== STUDENT PROFILE ==================
+// ======================================================
+
+// Get Student Profile
+router.get(
+  "/student/profile",
+  verifyToken,
+  authorize(["student"]),
+  getStudentProfile
+);
+
+// Update Student Name
+router.put(
+  "/student/update-name",
+  verifyToken,
+  authorize(["student"]),
+  updateStudentName
+);
+
+// Update Student Password
+router.put(
+  "/student/update-password",
+  verifyToken,
+  authorize(["student"]),
+  updateStudentPassword
+);
+
+// ======================================================
+// ================= TRAINER PROFILE =====================
+// ======================================================
+
+// Get Trainer Profile
+router.get(
+  "/trainer/profile",
+  verifyToken,
+  authorize(["trainer"]),
+  getTrainerProfile
+);
+
+// Update Trainer Name
+router.put(
+  "/trainer/update-name",
+  verifyToken,
+  authorize(["trainer"]),
+  updateTrainerName
+);
+
+// Update Trainer Password
+router.put(
+  "/trainer/update-password",
+  verifyToken,
+  authorize(["trainer"]),
+  updateTrainerPassword
+);
+
 // Batch Controller
+
 const {
   createBatch,
   joinBatch,
